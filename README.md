@@ -1,10 +1,20 @@
 # DBYTE A780L3B BIOS 95W Research
 
+BIOS reverse-engineering notes for DBYTE A780L3B 95W threshold research.
+
 This repository documents a BIOS reverse-engineering experiment on the BIOSTAR A780L3B / 78LDPxxx AMI BIOS family.
 
 The goal was to understand the firmware path behind the `Max Power of CPU is over 95W` POST warning and compare multiple BIOS revisions against a known 322-derived artifact.
 
 ## Status
+
+```text
+Research archive: COMPLETE
+GitHub footprint: COMPLETE
+Physical board state: FAILED POST / RECOVERY REQUIRED
+Best documented candidate: 78LDP428-T130.rom
+Recovery baseline: 78LDP428.rom stock
+```
 
 This is a private research archive, not a public firmware release.
 
@@ -95,20 +105,36 @@ Do not continue testing modified firmware until the board is recovered.
 
 ```text
 bios/       key local artifact manifest and SHA256 sums
-docs/       threshold oracle, failure notes, recovery notes
+docs/       threshold oracle, methodology, risks, failure notes, recovery notes
 reports/    verification reports and stable hashes
 notes/      local artifact index and binary policy
 scripts/    local hash verification helper
 assets/     optional screenshots and board photos
+releases/   release note drafts
+```
+
+Core project files:
+
+```text
+SHOWCASE.md
+STATUS.md
+CHANGELOG.md
+CONTRIBUTING.md
+SECURITY.md
 ```
 
 Related notes:
 
 ```text
+docs/95w-threshold-oracle.md
+docs/methodology.md
+docs/decision-log.md
+docs/risk-register.md
 docs/post-beep-note.md
 docs/recovery-notes.md
 bios/MANIFEST.md
 bios/SHA256SUMS.txt
+reports/428-t130-clean-repack-pass.md
 ```
 
 ## Repository Policy
