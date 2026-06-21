@@ -1,19 +1,24 @@
-*.rom
-*.ROM
-*.bss
-*.BSS
-*.bin
-*.BIN
+# lab junk
 *.zip
 *.7z
 *.rar
+*.tmp
+*.bak
 
+# raw extraction workspace
 firmware_evolution/
-rom/
 mods_*/
 flash_candidate*/
 candidates_*/
 readback_after_flash/
+
+# keep curated BIOS files in bios/ if the owner decides to archive them there
+!bios/*.rom
+!bios/*.ROM
+!bios/*.bss
+!bios/*.BSS
+!bios/*.bin
+!bios/*.BIN
 
 .DS_Store
 Thumbs.db
