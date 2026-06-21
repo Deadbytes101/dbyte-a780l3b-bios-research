@@ -1,40 +1,35 @@
-# DBYTE A780L3B BIOS 95W Research
+# DBYTE A780L3B BIOS 95W
 
-BIOS reverse-engineering notes for DBYTE A780L3B 95W threshold research.
+Raw BIOS notes for the BIOSTAR A780L3B / 78LDPxxx AMI BIOS line.
 
-This repository documents a BIOS reverse-engineering experiment on the BIOSTAR A780L3B / 78LDPxxx AMI BIOS family.
+This is not a clean-room product page. This is the trail: strings, modules, hashes, bad paths, one flash that went sideways, and the threshold that mattered.
 
-The goal was to understand the firmware path behind the `Max Power of CPU is over 95W` POST warning and compare multiple BIOS revisions against a known 322-derived artifact.
+![95W warning string search](assets/images/95w-warning-string-search.jpg)
 
-## Status
+![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpg)
 
-```text
-Research archive: COMPLETE
-GitHub footprint: COMPLETE
-Physical board state: FAILED POST / RECOVERY REQUIRED
-Best documented candidate: 78LDP428-T130.rom
-Recovery baseline: 78LDP428.rom stock
-```
+## What this found
 
-This is a private research archive, not a public firmware release.
+The useful path was not the warning branch skip.
 
-No vendor BIOS images, modified ROMs, module binaries, or flashable firmware blobs are distributed in this repository.
-
-## Key Finding
-
-The useful oracle was not a warning-branch skip. The 322-derived behavior maps to a threshold immediate patch inside the `1B / SingleLinkArch` module:
+The working 322-style behavior points at a threshold constant in `1B / SingleLinkArch`:
 
 ```text
 100000 -> 130000
-
-old bytes:
-A0 86 01 00
-
-new bytes:
-D0 FB 01 00
+A0 86 01 00 -> D0 FB 01 00
 ```
 
-## Confirmed Golden 322 Artifact
+The old `428-S95` branch-skip path is dead weight now:
+
+```text
+0x019249: 0F 84 99 00 -> E9 9A 00 90
+```
+
+It repacked clean, but it was the wrong idea.
+
+## Golden 322
+
+This is the oracle that mattered.
 
 ```text
 a780l3b-322-threshold-130000.rom
@@ -50,113 +45,110 @@ ORIG322.BSS
 SHA256 0E811F3F70D47C47C75293CD163335589DE4CA754E99E7CA80FCEEF23658BCA4
 ```
 
-## 428 Threshold Candidate Verification
+Raw full-ROM diff was noisy and not trusted as a patch source.
 
-A 428 threshold full ROM candidate was built and extract-back verified locally.
+```text
+diff_count = 149788
+first_diff = 0x0486D4
+last_diff  = 0x0FFFFC
+```
+
+So the work moved to module-level evidence.
+
+## 428-T130
+
+Best documented 428 candidate.
 
 ```text
 78LDP428-T130.rom
 SHA256 81665274B955B1139F02FAC129E544BB575B00F85DA6B72ED8A3B6106E24CF79
 
-Verifier:
+verifier:
 PASS_CANDIDATE_428_THRESHOLD_CLEAN_REPACK
-
-Extract-back:
-1B matched the 428 threshold module candidate.
-21 matched the 428 MultiLanguage baseline.
 ```
 
-This candidate is documented only as a local research artifact. It is not published here as a flashable release.
-
-## Deprecated Path
-
-The earlier `428-S95` branch-skip approach is deprecated.
-
-It produced a clean repack, but it was not equivalent to the golden 322 threshold behavior.
-
-## Flashing Result / Postmortem
-
-During later testing, the board entered a failed POST state after a flash attempt that reportedly powered off unexpectedly during the flashing process.
-
-Observed symptoms:
+Extract-back result:
 
 ```text
-No video output
-POST beep pattern
-System powers off after a short time
+1B == patched 428 threshold module
+21 == 428 MultiLanguage baseline
+```
+
+This proves the repack, not the physical chip. Chip proof needs readback.
+
+## Recovery stock
+
+If the board is dead or confused, stock first.
+
+```text
+78LDP428.rom
+SHA256 955798C808809341857C84CD3E1EC2DCC89CEC1098FC923FE048D2ADC3BE262D
+```
+
+Alt baseline:
+
+```text
+78LDP322.rom
+SHA256 0E811F3F70D47C47C75293CD163335589DE4CA754E99E7CA80FCEEF23658BCA4
+```
+
+## Flash postmortem
+
+One flash attempt reportedly powered off during the flash.
+
+After that:
+
+```text
+no video
+beep pattern
+power-off after a short time
 USB recovery did not start
 ```
 
-Working diagnosis:
+Beep note:
 
 ```text
-Interrupted or incomplete BIOS write / bad flash state.
+ติ๊ดติ๊ด -- ติ๊ดติ๊ดติ๊ดติ๊ด
+บางรอบมีติ๊ดตามมาอีกหนึ่ง
 ```
 
-Recommended recovery path:
+Current diagnosis:
 
 ```text
-Use stock BIOS only.
-Use CH341A / SPI programmer or a repair shop capable of flashing the BIOS chip.
-Do not continue testing modified firmware until the board is recovered.
+bad flash state / incomplete write until proven otherwise
 ```
 
-## Repo Map
+Recovery path:
 
 ```text
-bios/       key local artifact manifest and SHA256 sums
-docs/       threshold oracle, methodology, risks, failure notes, recovery notes
-reports/    verification reports and stable hashes
-notes/      local artifact index and binary policy
-scripts/    local hash verification helper
-assets/     optional screenshots and board photos
-releases/   release note drafts
+CH341A + SOIC8 clip
+or shop BIOS chip flash
+write stock first
 ```
 
-Core project files:
+## Repo map
 
 ```text
-SHOWCASE.md
-STATUS.md
-CHANGELOG.md
-CONTRIBUTING.md
-SECURITY.md
+bios/       manifest and hashes
+assets/     photos / screenshots
+docs/       notes, method, recovery, decision log
+reports/    verifier records
+scripts/    hash checker
+releases/   release note text
+notes/      local artifact notes
 ```
 
-Related notes:
+Start here:
 
 ```text
-docs/95w-threshold-oracle.md
-docs/methodology.md
-docs/decision-log.md
-docs/risk-register.md
-docs/post-beep-note.md
-docs/recovery-notes.md
 bios/MANIFEST.md
 bios/SHA256SUMS.txt
+docs/95w-threshold-oracle.md
+docs/methodology.md
+docs/post-beep-note.md
 reports/428-t130-clean-repack-pass.md
 ```
 
-## Repository Policy
+## Boundary
 
-This repository tracks methodology, reports, checksums, and scripts only.
-
-Firmware blobs are intentionally excluded:
-
-```text
-*.rom
-*.ROM
-*.bss
-*.BSS
-*.bin
-*.BIN
-*.zip
-```
-
-## Safety Notes
-
-This work involves low-level firmware modification.
-
-It can brick hardware, corrupt firmware state, or bypass board-level protection logic.
-
-This repository is for documentation and reproducible analysis only.
+BIOS work can brick boards. This repo records what happened and what matched by hash. It does not make the hardware safe.
