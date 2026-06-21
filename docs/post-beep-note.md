@@ -17,16 +17,6 @@ Beep pattern as reported:
 
 ```text
 beep beep -- beep beep beep beep
-plus one later beep in some attempts
-```
-
-Thai field note:
-
-```text
-เป็นจังหวะ: ติ๊ดติ๊ด -- ติ๊ดติ๊ดติ๊ดติ๊ด
-บางรอบมีติ๊ดตามมาอีกหนึ่ง
-ไม่มีภาพ และถ้าปล่อยไว้จะดับไปเอง
-```
 
 ## Working Diagnosis
 
