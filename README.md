@@ -91,6 +91,26 @@ Use CH341A / SPI programmer or a repair shop capable of flashing the BIOS chip.
 Do not continue testing modified firmware until the board is recovered.
 ```
 
+## Repo Map
+
+```text
+bios/       key local artifact manifest and SHA256 sums
+docs/       threshold oracle, failure notes, recovery notes
+reports/    verification reports and stable hashes
+notes/      local artifact index and binary policy
+scripts/    local hash verification helper
+assets/     optional screenshots and board photos
+```
+
+Related notes:
+
+```text
+docs/post-beep-note.md
+docs/recovery-notes.md
+bios/MANIFEST.md
+bios/SHA256SUMS.txt
+```
+
 ## Repository Policy
 
 This repository tracks methodology, reports, checksums, and scripts only.
