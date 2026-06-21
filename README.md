@@ -4,9 +4,9 @@ Raw BIOS notes for the BIOSTAR A780L3B / 78LDPxxx AMI BIOS line.
 
 This is not a clean-room product page. This is the trail: strings, modules, hashes, bad paths, one flash that went sideways, and the threshold that mattered.
 
-![95W warning string search](assets/images/95w-warning-string-search.jpg)
+![95W warning string search](assets/images/95w-warning-string-search.jpeg)
 
-![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpg)
+![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpeg)
 
 ## What this found
 
