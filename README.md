@@ -4,6 +4,9 @@ Raw BIOS notes for the BIOSTAR A780L3B / 78LDPxxx AMI BIOS line.
 
 This is not a clean-room product page. This is the trail: strings, modules, hashes, bad paths, one flash that went sideways, and the threshold that mattered.
 
+> RING-0 NOTE:
+> The BIOS does not care about vibes. It boots or it lies. Hash first. Hardware last.
+
 ![95W warning string search](assets/images/95w-warning-string-search.jpeg)
 
 ![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpeg)
@@ -28,6 +31,16 @@ A0 86 01 00 -> D0 FB 01 00
 ```
 
 Not the warning branch skip.
+
+## Release payload
+
+The `A780-125W` release carries the 322 unlock files:
+
+```text
+A780MOD.BSS
+A780MOD.ROM
+SHA256 DBEF5C4AFCBBF83C76276B52D293B6EB034EA224629753DF6FE52DAAB5DBE628
+```
 
 ## Dead path
 
