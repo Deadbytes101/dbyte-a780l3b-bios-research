@@ -9,8 +9,6 @@ This is not a clean-room product page. This is the trail: strings, modules, hash
 
 ![95W warning string search](assets/images/95w-warning-string-search.jpeg)
 
-![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpeg)
-
 ## Result
 
 322 did it.
