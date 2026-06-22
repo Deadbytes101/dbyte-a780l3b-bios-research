@@ -8,18 +8,30 @@ This is not a clean-room product page. This is the trail: strings, modules, hash
 
 ![A780MOD.BSS flash screen](assets/images/a780mod-bss-flash-success.jpeg)
 
-## What this found
+## Result
 
-The useful path was not the warning branch skip.
+322 did it.
 
-The working 322-style behavior points at a threshold constant in `1B / SingleLinkArch`:
+The 322 path unlocked the TDP / power warning behavior in this work. That is the success point.
+
+```text
+322 unlock: success
+95W path: crossed
+125W target: reached in the 322 artifact
+```
+
+The byte-level thing that mattered:
 
 ```text
 100000 -> 130000
 A0 86 01 00 -> D0 FB 01 00
 ```
 
-The old `428-S95` branch-skip path is dead weight now:
+Not the warning branch skip.
+
+## Dead path
+
+The old `428-S95` branch skip is dead weight now:
 
 ```text
 0x019249: 0F 84 99 00 -> E9 9A 00 90
@@ -29,7 +41,7 @@ It repacked clean, but it was the wrong idea.
 
 ## Golden 322
 
-This is the oracle that mattered.
+This is the oracle.
 
 ```text
 a780l3b-322-threshold-130000.rom
@@ -57,7 +69,7 @@ So the work moved to module-level evidence.
 
 ## 428-T130
 
-Best documented 428 candidate.
+Best documented 428 port attempt.
 
 ```text
 78LDP428-T130.rom
@@ -108,8 +120,8 @@ USB recovery did not start
 Beep note:
 
 ```text
-ติ๊ดติ๊ด -- ติ๊ดติ๊ดติ๊ดติ๊ด
-บางรอบมีติ๊ดตามมาอีกหนึ่ง
+beep beep -- beep beep beep beep
+sometimes followed by one later beep
 ```
 
 Current diagnosis:
@@ -131,7 +143,7 @@ write stock first
 ```text
 bios/       manifest and hashes
 assets/     photos / screenshots
-docs/       notes, method, recovery, decision log
+docs/       notes, method, recovery
 reports/    verifier records
 scripts/    hash checker
 releases/   release note text

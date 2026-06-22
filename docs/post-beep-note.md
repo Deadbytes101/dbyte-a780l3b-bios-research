@@ -1,75 +1,42 @@
-# POST / Beep Failure Note
+# POST / Beep Note
 
-## Observed State
+After one flash attempt reportedly powered off during the flash, the board stopped reaching video output.
 
-After a flash attempt that reportedly powered off unexpectedly during the flash process, the board no longer reached video output.
-
-Observed behavior:
+Observed state:
 
 ```text
-No video output
+no video
 POST beep pattern
-System powers off after a short time
+system powers off after a short time
 USB recovery did not start
 ```
 
-Beep pattern as reported:
+Reported beep pattern:
 
 ```text
 beep beep -- beep beep beep beep
-
-## Working Diagnosis
-
-Treat the board as a failed POST / bad flash state until proven otherwise.
-
-Most likely class:
-
-```text
-interrupted or incomplete BIOS write
-main BIOS area not booting cleanly
-bootblock USB recovery did not start
+sometimes followed by one later beep
 ```
 
-## Important Boundary
-
-This note does not prove that the 428-T130 candidate caused the failure.
-
-The candidate was locally verified as a clean repack, but there was no chip readback proving the physical BIOS chip matched the candidate after flashing.
-
-## Recovery Direction
-
-Use stock firmware only for recovery.
-
-Primary recovery target:
+Working diagnosis:
 
 ```text
-78LDP428.rom
-SHA256 955798C808809341857C84CD3E1EC2DCC89CEC1098FC923FE048D2ADC3BE262D
+bad flash state / incomplete BIOS write until proven otherwise
 ```
 
-Recommended path:
+This note does not prove that 428-T130 caused the failure. The candidate was locally extract-back verified, but there was no chip readback proving the physical BIOS chip matched the file after flashing.
+
+Recovery direction:
 
 ```text
+stock firmware first
 CH341A / SPI programmer + SOIC8 clip
 or repair shop BIOS chip flash service
 ```
 
-Do not continue modified firmware testing until stock POST is restored.
-
-## Screenshot Slots
-
-Place screenshots under `assets/` if desired:
+Primary stock recovery target:
 
 ```text
-assets/board-photo.jpg
-assets/post-failure.jpg
-assets/beep-note.jpg
-```
-
-Suggested captions:
-
-```text
-board-photo: BIOSTAR A780L3B / A780LD-M3S family board under test
-post-failure: no-video POST failure state after interrupted flash
-beep-note: reported beep pattern notes
+78LDP428.rom
+SHA256 955798C808809341857C84CD3E1EC2DCC89CEC1098FC923FE048D2ADC3BE262D
 ```
