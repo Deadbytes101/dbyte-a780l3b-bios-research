@@ -14,6 +14,10 @@ RULE   : HASH FILE. READ CHIP. DO NOT GUESS.
 </p>
 
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/4c54deac-afdb-49d9-ba2c-5914133ff321" width="860" alt="BIOS PATCH PROOF">
+</p>
+
+<p align="center">
   <img src="assets/images/a780mod-bss-flash-success.jpeg" width="520" alt="A780MOD.BSS FLASH">
 </p>
 
