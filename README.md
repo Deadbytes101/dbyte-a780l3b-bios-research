@@ -7,9 +7,15 @@ STATE  : 322 PATH WORKS
 RULE   : HASH FILE. READ CHIP. DO NOT GUESS.
 ```
 
-![95W WARNING STRING](assets/images/95w-warning-string-search.jpeg)
+## PROOF
 
-![A780MOD.BSS FLASH](assets/images/a780mod-bss-flash-success.jpeg)
+<p align="center">
+  <img src="assets/images/95w-warning-string-search.jpeg" width="860" alt="95W WARNING STRING">
+</p>
+
+<p align="center">
+  <img src="assets/images/a780mod-bss-flash-success.jpeg" width="520" alt="A780MOD.BSS FLASH">
+</p>
 
 ## FILES
 
